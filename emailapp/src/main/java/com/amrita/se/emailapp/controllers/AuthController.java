@@ -217,7 +217,7 @@ public class AuthController {
     }
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteEmail(InboxRequest inboxRequest){
+    public ResponseEntity<?> deleteEmail(@Valid @RequestBody InboxRequest inboxRequest){
         boolean i = composeEmailService.deleteComposeEmail(inboxRequest.getId());
         if(!i){
             return new ResponseEntity<>("not exist",HttpStatus.BAD_REQUEST);

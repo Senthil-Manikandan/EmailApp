@@ -76,7 +76,6 @@ public class ComposeEmailServiceImpl implements ComposeEmailService {
     @Override
     public boolean deleteComposeEmail(Long id){
             return mailRepository.deleteEmail(id);
-
     }
 
 }
