@@ -6,9 +6,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ComposeEmailRowMapper implements RowMapper<ComposeEmail> {
+public class ComposeEmailMapper implements RowMapper<ComposeEmail> {
 
-    public ComposeEmail mapRow(ResultSet rs, int i) throws SQLException{
+    public ComposeEmail mapRow(ResultSet rs, int rowNum) throws SQLException {
         ComposeEmail newMail = new ComposeEmail();
         newMail.setId(rs.getLong("id"));
         newMail.setSenderEmail(rs.getString("senderemail"));
@@ -21,5 +21,4 @@ public class ComposeEmailRowMapper implements RowMapper<ComposeEmail> {
         newMail.setCurrentEscLevel(rs.getLong("currentesclevel"));
         return newMail;
     }
-
 }

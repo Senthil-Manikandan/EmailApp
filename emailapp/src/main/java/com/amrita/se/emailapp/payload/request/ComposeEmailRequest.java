@@ -13,6 +13,8 @@ public class ComposeEmailRequest {
     @NotNull
     private String receiverEmail;
 
+    private String cc;
+
     @NotBlank
     @NotNull
     private String subject;
@@ -20,6 +22,15 @@ public class ComposeEmailRequest {
     @NotBlank
     @NotNull
     private String msgBody;
+
+    @NotBlank
+    private Long templateId;
+
+    @NotBlank
+    private Long esc;
+
+    @NotBlank
+    private Long currentEscLevel;
 
     public String getSenderEmail() {
         return senderEmail;
@@ -37,6 +48,14 @@ public class ComposeEmailRequest {
         this.receiverEmail = receiverEmail;
     }
 
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
     public String getSubject() {
         return subject;
     }
@@ -51,5 +70,29 @@ public class ComposeEmailRequest {
 
     public void setMsgBody(String msgBody) {
         this.msgBody = msgBody;
+    }
+
+    public Long getTemplateId() {
+        return templateId;
+    }
+
+    public void setTemplateId(Long templateId) {
+        this.templateId = templateId;
+    }
+
+    public Long getEsc() {
+        return esc;
+    }
+
+    public void setEsc(Long esc) {
+        this.esc = esc;
+    }
+
+    public Long getCurrentEscLevel() {
+        return currentEscLevel;
+    }
+
+    public void setCurrentEscLevel(Long currentEscLevel) {
+        this.currentEscLevel = currentEscLevel;
     }
 }

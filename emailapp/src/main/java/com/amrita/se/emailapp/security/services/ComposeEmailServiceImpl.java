@@ -26,24 +26,36 @@ public class ComposeEmailServiceImpl implements ComposeEmailService {
         ComposeEmail newEmail = new ComposeEmail();
         newEmail.setSenderEmail(composeEmailRequest.getSenderEmail());
         newEmail.setReceiverEmail(composeEmailRequest.getReceiverEmail());
+        newEmail.setCc(composeEmailRequest.getCc());
         newEmail.setMsgBody(composeEmailRequest.getMsgBody());
         newEmail.setSubject(composeEmailRequest.getSubject());
+        newEmail.setTemplateId(composeEmailRequest.getTemplateId());
+        newEmail.setEsc(composeEmailRequest.getEsc());
+        newEmail.setCurrentEscLevel(composeEmailRequest.getCurrentEscLevel());
         composeEmailRepository.save(newEmail);
         return new MessageResponse("Mail sent successfully");
     }
 
     @Override
     public Optional<ComposeEmail> updateComposeEmail(Integer id, ComposeEmailRequest composeEmailRequest) {
-        Optional<ComposeEmail>  mail = composeEmailRepository.findById(Long.valueOf(id));
+        Optional<ComposeEmail>  newEmail = composeEmailRepository.findById(Long.valueOf(id));
 //        if(mail.isEmpty()){
 //            throw new ConfigDataResourceNotFoundException("mail");
 //        }
-        mail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
-        mail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
-        mail.get().setMsgBody(composeEmailRequest.getMsgBody());
-        mail.get().setSubject(composeEmailRequest.getSubject());
-        composeEmailRepository.save(mail.get());
-        return mail;
+        newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
+        newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
+        newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
+        newEmail.get().setSubject(composeEmailRequest.getSubject());
+        newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
+        newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
+        newEmail.get().setCc(composeEmailRequest.getCc());
+        newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
+        newEmail.get().setSubject(composeEmailRequest.getSubject());
+        newEmail.get().setTemplateId(composeEmailRequest.getTemplateId());
+        newEmail.get().setEsc(composeEmailRequest.getEsc());
+        newEmail.get().setCurrentEscLevel(composeEmailRequest.getCurrentEscLevel());
+        composeEmailRepository.save(newEmail.get());
+        return newEmail;
     }
 
     @Override
