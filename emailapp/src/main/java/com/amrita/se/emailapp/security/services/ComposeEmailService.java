@@ -1,5 +1,6 @@
 package com.amrita.se.emailapp.security.services;
 
+import com.amrita.se.emailapp.Exception.ConfigDataResourceNotFoundException;
 import com.amrita.se.emailapp.models.ComposeEmail;
 import com.amrita.se.emailapp.payload.request.ComposeEmailRequest;
 import com.amrita.se.emailapp.payload.request.InboxEmailRequest;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Component
 public interface ComposeEmailService {
     MessageResponse createComposeEmail(ComposeEmailRequest composeEmailRequest);
-    Optional<ComposeEmail> updateComposeEmail(Integer id,ComposeEmailRequest composeEmailRequest);
+    Optional<ComposeEmail> updateComposeEmail(Integer id,ComposeEmailRequest composeEmailRequest) throws ConfigDataResourceNotFoundException;
     boolean deleteComposeEmail(Long id);
     ComposeEmail getSingleEmail(Long id);
 

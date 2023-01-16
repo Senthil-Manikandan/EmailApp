@@ -1,5 +1,6 @@
 package com.amrita.se.emailapp.security.services;
 
+import com.amrita.se.emailapp.Exception.ConfigDataResourceNotFoundException;
 import com.amrita.se.emailapp.models.ComposeEmail;
 import com.amrita.se.emailapp.payload.request.ComposeEmailRequest;
 import com.amrita.se.emailapp.payload.request.InboxEmailRequest;
@@ -37,25 +38,26 @@ public class ComposeEmailServiceImpl implements ComposeEmailService {
     }
 
     @Override
-    public Optional<ComposeEmail> updateComposeEmail(Integer id, ComposeEmailRequest composeEmailRequest) {
+    public Optional<ComposeEmail> updateComposeEmail(Integer id, ComposeEmailRequest composeEmailRequest) throws ConfigDataResourceNotFoundException {
         Optional<ComposeEmail>  newEmail = composeEmailRepository.findById(Long.valueOf(id));
-//        if(mail.isEmpty()){
-//            throw new ConfigDataResourceNotFoundException("mail");
-//        }
-        newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
-        newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
-        newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
-        newEmail.get().setSubject(composeEmailRequest.getSubject());
-        newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
-        newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
-        newEmail.get().setCc(composeEmailRequest.getCc());
-        newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
-        newEmail.get().setSubject(composeEmailRequest.getSubject());
-        newEmail.get().setTemplateId(composeEmailRequest.getTemplateId());
-        newEmail.get().setEsc(composeEmailRequest.getEsc());
-        newEmail.get().setCurrentEscLevel(composeEmailRequest.getCurrentEscLevel());
-        composeEmailRepository.save(newEmail.get());
-        return newEmail;
+        if(newEmail.isEmpty()){
+            throw new ConfigDataResourceNotFoundException("mail");
+        }else {
+            newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
+            newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
+            newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
+            newEmail.get().setSubject(composeEmailRequest.getSubject());
+            newEmail.get().setSenderEmail(composeEmailRequest.getSenderEmail());
+            newEmail.get().setReceiverEmail(composeEmailRequest.getReceiverEmail());
+            newEmail.get().setCc(composeEmailRequest.getCc());
+            newEmail.get().setMsgBody(composeEmailRequest.getMsgBody());
+            newEmail.get().setSubject(composeEmailRequest.getSubject());
+            newEmail.get().setTemplateId(composeEmailRequest.getTemplateId());
+            newEmail.get().setEsc(composeEmailRequest.getEsc());
+            newEmail.get().setCurrentEscLevel(composeEmailRequest.getCurrentEscLevel());
+            composeEmailRepository.save(newEmail.get());
+            return newEmail;
+        }
     }
 
     @Override
