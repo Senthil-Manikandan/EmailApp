@@ -4,6 +4,7 @@ import com.amrita.se.emailapp.Exception.ConfigDataResourceNotFoundException;
 import com.amrita.se.emailapp.models.ComposeEmail;
 import com.amrita.se.emailapp.payload.request.ComposeEmailRequest;
 import com.amrita.se.emailapp.payload.request.InboxEmailRequest;
+import com.amrita.se.emailapp.payload.request.OutboxEmailRequest;
 import com.amrita.se.emailapp.payload.response.MessageResponse;
 import com.amrita.se.emailapp.repository.ComposeEmailRepository;
 import com.amrita.se.emailapp.repository.MailRepository;
@@ -31,7 +32,7 @@ public class ComposeEmailServiceImpl implements ComposeEmailService {
         newEmail.setMsgBody(composeEmailRequest.getMsgBody());
         newEmail.setSubject(composeEmailRequest.getSubject());
         newEmail.setTemplateId(composeEmailRequest.getTemplateId());
-        newEmail.setEsc(composeEmailRequest.getEsc());
+        newEmail.setEsc(composeEmailRequest.getEsc()); //whether esc
         newEmail.setCurrentEscLevel(composeEmailRequest.getCurrentEscLevel());
         composeEmailRepository.save(newEmail);
         return new MessageResponse("Mail sent successfully");
@@ -67,6 +68,11 @@ public class ComposeEmailServiceImpl implements ComposeEmailService {
 
     public List<ComposeEmail> getInboxEmail(InboxEmailRequest inboxEmailRequest){
         List<ComposeEmail> mails = mailRepository.findBySenderEmail(inboxEmailRequest.getReceiverEmail());
+        return mails;
+    }
+
+    public List<ComposeEmail> getOutboxEmail(OutboxEmailRequest outboxEmailRequest){
+        List<ComposeEmail> mails = mailRepository.findByReceiverEmail(outboxEmailRequest.getSenderEmail());
         return mails;
     }
 

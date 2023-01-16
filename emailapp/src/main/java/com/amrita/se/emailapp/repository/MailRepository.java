@@ -22,6 +22,12 @@ public class MailRepository {
     }
 
     @Transactional
+    public List<ComposeEmail> findByReceiverEmail(String senderemail){
+        String sql = "select * from composeemail where senderemail = ? order by id desc limit 25";
+        return  jdbcTemplate.query(sql,new Object[] {senderemail},new ComposeEmailMapper());
+    }
+
+    @Transactional
     public boolean deleteEmail(Long id){
         String deletSql = "delete from composeemail where id = ?";
         return jdbcTemplate.update(deletSql,id) > 0 ;

@@ -4,6 +4,7 @@ import com.amrita.se.emailapp.Exception.ConfigDataResourceNotFoundException;
 import com.amrita.se.emailapp.models.ComposeEmail;
 import com.amrita.se.emailapp.payload.request.ComposeEmailRequest;
 import com.amrita.se.emailapp.payload.request.InboxEmailRequest;
+import com.amrita.se.emailapp.payload.request.OutboxEmailRequest;
 import com.amrita.se.emailapp.payload.response.MessageResponse;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ public interface ComposeEmailService {
     ComposeEmail getSingleEmail(Long id);
 
     List<ComposeEmail> getInboxEmail(InboxEmailRequest inboxEmailRequest);
+
+    List<ComposeEmail> getOutboxEmail(OutboxEmailRequest outboxEmailRequest);
 
     List<ComposeEmail> getAllComposeEmail();
 }

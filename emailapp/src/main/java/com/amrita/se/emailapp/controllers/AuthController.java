@@ -178,7 +178,7 @@ public class AuthController {
     }
 
     @PostMapping("/forgotpassword/verifyotp/resetpassword")
-    public ResponseEntity resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
 
         if(!userRepository.existsByEmail(resetPasswordRequest.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Mail not found"));
@@ -209,6 +209,18 @@ public class AuthController {
     public ResponseEntity<List<ComposeEmail>> getAllInboxEmail(@Valid @RequestBody InboxEmailRequest inboxEmailRequest){
         List<ComposeEmail> mails = composeEmailService.getInboxEmail(inboxEmailRequest);
         return new ResponseEntity<>(mails,HttpStatus.OK);
+    }
+
+    @PutMapping("/outbox/all")
+    public ResponseEntity<List<ComposeEmail>> getAllOutboxEmail(@Valid @RequestBody OutboxEmailRequest outboxEmailRequest){
+        List<ComposeEmail> mails = composeEmailService.getOutboxEmail(outboxEmailRequest);
+        return new ResponseEntity<>(mails,HttpStatus.OK);
+    }
+
+    @PutMapping("/outbox")
+    public  ResponseEntity<ComposeEmail> getOutbox(@Valid @RequestBody InboxRequest inboxRequest ){
+        ComposeEmail composeEmail = composeEmailService.getSingleEmail(inboxRequest.getId());
+        return new ResponseEntity<>(composeEmail,HttpStatus.OK);
     }
 
     @PostMapping("/composeemail")
