@@ -10,6 +10,7 @@ import com.amrita.se.emailapp.models.*;
 import com.amrita.se.emailapp.payload.request.*;
 import com.amrita.se.emailapp.repository.EmailService;
 import com.amrita.se.emailapp.security.services.ComposeEmailService;
+import com.amrita.se.emailapp.security.services.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,9 @@ public class AuthController {
 
     @Autowired
     private ComposeEmailService composeEmailService;
+
+    @Autowired
+    private TemplateService templateService;
 
     @Autowired
     PasswordEncoder encoder;
@@ -148,10 +152,7 @@ public class AuthController {
         emailDetails.setRecipient(forgotPasswordRequest.getEmail());
         emailDetails.setMsgBody(emailBody+regards);
         emailDetails.setSubject("Verification OTP for Amrita Mail App");
-
         String status = emailService.sendSimpleMail(emailDetails);
-
-
         return ResponseEntity.ok(new MessageResponse(status));
     }
 
@@ -223,6 +224,24 @@ public class AuthController {
             return new ResponseEntity<>("not exist",HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("deleted",HttpStatus.OK);
+    }
+
+    @PostMapping("/createtemplate")
+    public ResponseEntity<?> createTemplate(@Valid @RequestBody TemplateRequest templateRequest){
+        MessageResponse newTemp = templateService.createTemplate(templateRequest);
+        return  new ResponseEntity<>(newTemp,HttpStatus.CREATED);
+    }
+
+    @GetMapping("/viewtemplate")
+    public ResponseEntity<?> viewTemplate(){
+        List<Template> temp = templateService.getAllTemplate();
+        return  new ResponseEntity<>(temp,HttpStatus.OK);
+    }
+
+    @PutMapping("/gettemplatebyid")
+    public ResponseEntity<?> getTemplateById(@Valid @RequestBody GetTemplateRequest getTemplateRequest){
+        Template temp  = templateService.getSingleTemplate(getTemplateRequest.getTemplateId());
+        return  new ResponseEntity<>(temp,HttpStatus.OK);
     }
 
     @PostMapping("/signout")

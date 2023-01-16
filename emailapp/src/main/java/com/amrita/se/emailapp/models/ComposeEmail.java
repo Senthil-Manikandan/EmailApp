@@ -1,6 +1,7 @@
 package com.amrita.se.emailapp.models;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "composeemail")
@@ -34,6 +35,7 @@ public class ComposeEmail {
 
     @Column(name = "currentesclevel")
     private Long currentEscLevel;
+
 
     public ComposeEmail(){}
 
