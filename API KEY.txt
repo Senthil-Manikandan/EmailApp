@@ -1,0 +1,154 @@
+signup -POST
+
+http://localhost:8080/api/auth/signup
+
+{
+   "username":"mani",
+   "email":"mani@amrita.com",
+   "password":"qwerty1234" ,
+   "role":["user"]
+}
+
+------------------------------------------------------------------------------------
+login -POST
+
+http://localhost:8080/api/auth/signin
+
+{
+    "username":"senthil",
+    "password":"qwerty12345"
+}
+
+----------------------------------------------------------------------------------
+
+forgotpassword -- valid mailid only -POST
+
+http://localhost:8080/api/auth/forgotpassword
+
+{
+    "email":"senthilmanikandan0780@gmail.com"
+}
+
+---------------------------------------------------------------------------------------
+
+verify otp -POST
+
+http://localhost:8080/api/auth/forgotpassword/verifyotp
+
+{
+    "email":"senthilmanikandan0780@gmail.com",
+    "resetToken":"14493"
+}
+
+-------------------------------------------------------------------------------
+reset password -POST
+
+http://localhost:8080/api/auth/forgotpassword/verifyotp/resetpassword
+
+{
+    "email":"senthilmanikandan0780@gmail.com",
+    "password":"qwerty12345"
+}
+
+------------------------------------------------------------------------------
+send mail/compose -POST
+
+http://localhost:8080/api/auth/composeemail
+
+{
+    "senderEmail" : "senthil@gmail.com",
+    "receiverEmail" :"saravanan@gmail.com",
+    "cc" : "annam@gmail.com",
+    "subject" : "Test1",
+    "msgBody" : "Hi Regards Senthil",
+    "tempalteId" : 0,
+    "esc" : 0,
+    "currentEscLevel" : 0
+}
+
+-----------------------------------------------------------------------------------
+ALL mail in db - GET
+
+http://localhost:8080/api/auth/all
+
+-------------------------------------------------------------------------------------
+
+Inbox for login  - PUT
+
+http://localhost:8080/api/auth/inbox/all
+
+{
+    "receiverEmail" : "saravanan@gmail.com"
+}
+
+-------------------------------------------------------------------------------
+
+Particular mail - PUT
+
+http://localhost:8080/api/auth/inbox
+
+{
+    "id" : 1
+}
+
+--------------------------------------------------------------------------------
+
+delte mail - POST
+
+
+http://localhost:8080/api/auth/delete
+
+{
+    "id" : 2
+}
+
+--------------------------------------------------------------------------------
+
+create template - CUSTOm as well as premade - POST
+
+http://localhost:8080/api/auth/createtemplate
+
+{
+    "templateName" : "Examination",
+    "templateSubject" : "Request to attend examination on another day due to emergency",
+    "templateBody" : "Respected Sir/Ma’am,I am <name> and my roll number is <roll number>.I am writing this mail regarding the change in date to attend the exam on a different date due to unforeseen circumstance which cannot be avoided.↵Kindly request you to grant me permission for the above mentioned. I would like to apologize for the situation from my end.Thanking you.↵Regards,↵<name>↵<roll number>",
+    "abstractContent" : "Request permission to change the date of examination attempt due to unforeseen circumstance which cannot be avoided"
+}
+
+---------------------------------------------------------------------------------------------
+
+view all template - GET
+
+http://localhost:8080/api/auth/viewtemplate
+
+---------------------------------------------------------------------------------------
+
+get patricular template _ PUT
+
+http://localhost:8080/api/auth/gettemplatebyid
+
+
+{
+    "templateId" : 4
+}
+
+-----------------------------------------------------------------------------------------
+
+
+outbox all - PUT
+
+http://localhost:8080/api/auth/outbox/all
+
+{
+    "senderEmail": "senthil@gmail.com"
+}
+-----------------------------------------------------------------------------------------------------
+
+outbox particular mail - PUT
+
+http://localhost:8080/api/auth/outbox
+
+{
+    "id" : 1
+}
+
